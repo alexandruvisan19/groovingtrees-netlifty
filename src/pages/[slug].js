@@ -19,6 +19,10 @@ import FeaturedImage from 'components/FeaturedImage';
 import styles from 'styles/pages/Post.module.scss';
 import Breadcrumbs from 'components/Breadcrumbs';
 
+export const config = {
+  unstable_runtimeJS: false,
+};
+
 export default function Post({ post, socialImage, related }) {
   const {
     title,
