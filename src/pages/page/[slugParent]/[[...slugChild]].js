@@ -104,7 +104,6 @@ export async function getStaticProps({ params = {} } = {}) {
   const { slugParent, slugChild } = params;
 
   // We can use the URI to look up our page and subsequently its ID, so
-  // we can first contruct our URI from the page params
 
   let pageUri = `/${slugParent}/`;
 
