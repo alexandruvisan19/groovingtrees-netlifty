@@ -19,10 +19,6 @@ import FeaturedImage from 'components/FeaturedImage';
 import styles from 'styles/pages/Post.module.scss';
 import Breadcrumbs from 'components/Breadcrumbs';
 
-export const config = {
-  unstable_runtimeJS: false,
-};
-
 export default function Post({ post, socialImage, related }) {
   const {
     title,
@@ -87,7 +83,7 @@ export default function Post({ post, socialImage, related }) {
           />
         )}
         <h1
-          className={styles.title}
+          className="prose"
           dangerouslySetInnerHTML={{
             __html: title,
           }}
@@ -106,7 +102,7 @@ export default function Post({ post, socialImage, related }) {
         <Section>
           <Container>
             <div
-              className={styles.content}
+              className="prose prose-lg"
               dangerouslySetInnerHTML={{
                 __html: content,
               }}

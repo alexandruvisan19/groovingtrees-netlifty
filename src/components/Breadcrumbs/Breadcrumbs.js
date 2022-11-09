@@ -6,7 +6,7 @@ import { TbMinusVertical } from 'react-icons/tb';
 
 const Breadcrumbs = ({ categories, slug, title }) => {
   return (
-    <nav className="prose-hr:mt-1 prose-hr:mb-4 md:prose-hr:mt-1 md:prose-hr:mb-4 prose-a:no-underline flex items-center text-sm md:text-base mb-4 border-b sm:border-b-0 pb-2">
+    <nav className="prose prose-hr:mt-1 prose-hr:mb-4 md:prose-hr:mt-1 md:prose-hr:mb-4 prose-a:no-underline flex items-center text-sm md:text-base mb-4 border-b sm:border-b-0 pb-2">
       <Link href="/">
         <a className="hover:text-autumn-300 text-lg" aria-label="Homepage">
           <TbTree />

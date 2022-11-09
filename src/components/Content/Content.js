@@ -7,7 +7,7 @@ const Content = ({ children, className }) => {
 
   contentClassName.addIf(className, className);
 
-  return <div className={contentClassName.toString()}>{children}</div>;
+  return <div className={`${contentClassName.toString()}`}>{children}</div>;
 };
 
 export default Content;
