@@ -14,7 +14,7 @@ import Section from 'components/Section';
 import Container from 'components/Container';
 import Content from 'components/Content';
 import Metadata from 'components/Metadata';
-import FeaturedImage from 'components/FeaturedImage';
+// import FeaturedImage from 'components/FeaturedImage';
 
 import styles from 'styles/pages/Post.module.scss';
 import Breadcrumbs from 'components/Breadcrumbs';
@@ -29,7 +29,7 @@ export default function Post({ post, socialImage, related }) {
     author,
     categories,
     modified,
-    featuredImage,
+    // featuredImage,
     isSticky = false,
     slug,
   } = post;
@@ -75,13 +75,13 @@ export default function Post({ post, socialImage, related }) {
 
       <Header>
         <Breadcrumbs categories={categories} options={metadataOptions} slug={slug} title={title} />
-        {featuredImage && (
+        {/* {featuredImage && (
           <FeaturedImage
             {...featuredImage}
             src={featuredImage.sourceUrl}
             dangerouslySetInnerHTML={featuredImage.caption}
           />
-        )}
+        )} */}
         <h1
           className="prose"
           dangerouslySetInnerHTML={{
