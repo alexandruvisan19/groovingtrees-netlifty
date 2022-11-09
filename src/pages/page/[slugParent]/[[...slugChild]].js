@@ -108,9 +108,6 @@ export async function getStaticProps({ params = {} } = {}) {
 
   let pageUri = `/${slugParent}/`;
 
-  // We only want to apply deeper paths to the URI if we actually have
-  // existing children
-
   if (Array.isArray(slugChild) && slugChild.length > 0) {
     pageUri = `${pageUri}${slugChild.join('/')}/`;
   }
