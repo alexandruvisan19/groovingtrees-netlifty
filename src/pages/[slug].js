@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { Helmet } from 'react-helmet';
 
-import { getPostBySlug, getRecentPosts, getRelatedPosts, postPathBySlug } from 'lib/posts';
-import { categoryPathBySlug } from 'lib/categories';
+import { getPostBySlug, getRecentPosts, postPathBySlug } from 'lib/posts';
 import { formatDate } from 'lib/datetime';
 import { ArticleJsonLd } from 'lib/json-ld';
 import { helmetSettingsFromMetadata } from 'lib/site';
@@ -18,6 +17,7 @@ import Metadata from 'components/Metadata';
 import FeaturedImage from 'components/FeaturedImage';
 
 import styles from 'styles/pages/Post.module.scss';
+import Breadcrumbs from 'components/Breadcrumbs';
 
 export default function Post({ post, socialImage, related }) {
   const {
@@ -31,6 +31,7 @@ export default function Post({ post, socialImage, related }) {
     modified,
     featuredImage,
     isSticky = false,
+    slug,
   } = post;
 
   const { metadata: siteMetadata = {}, homepage } = useSite();
@@ -73,6 +74,7 @@ export default function Post({ post, socialImage, related }) {
       <ArticleJsonLd post={post} siteTitle={siteMetadata.title} />
 
       <Header>
+        <Breadcrumbs categories={categories} options={metadataOptions} slug={slug} title={title} />
         {featuredImage && (
           <FeaturedImage
             {...featuredImage}
@@ -151,25 +153,25 @@ export async function getStaticProps({ params = {} } = {}) {
     };
   }
 
-  const { categories, databaseId: postId } = post;
-
   const props = {
     post,
     socialImage: `${process.env.OG_IMAGE_DIRECTORY}/${params?.slug}.png`,
   };
 
-  const { category: relatedCategory, posts: relatedPosts } = (await getRelatedPosts(categories, postId)) || {};
-  const hasRelated = relatedCategory && Array.isArray(relatedPosts) && relatedPosts.length;
+  // const { categories, databaseId: postId } = post;
 
-  if (hasRelated) {
-    props.related = {
-      posts: relatedPosts,
-      title: {
-        name: relatedCategory.name || null,
-        link: categoryPathBySlug(relatedCategory.slug),
-      },
-    };
-  }
+  // const { category: relatedCategory, posts: relatedPosts } = (await getRelatedPosts(categories, postId)) || {};
+  // const hasRelated = relatedCategory && Array.isArray(relatedPosts) && relatedPosts.length;
+
+  // if (hasRelated) {
+  //   props.related = {
+  //     posts: relatedPosts,
+  //     title: {
+  //       name: relatedCategory.name || null,
+  //       link: categoryPathBySlug(relatedCategory.slug),
+  //     },
+  //   };
+  // }
 
   return {
     props,
