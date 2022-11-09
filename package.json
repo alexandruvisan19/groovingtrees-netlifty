@@ -36,7 +36,8 @@
     "react-icons": "^4.6.0",
     "rss": "^1.2.2",
     "sass": "^1.55.0",
-    "style.css": "^1.0.3"
+    "style.css": "^1.0.3",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "eslint": "8.23.1",
