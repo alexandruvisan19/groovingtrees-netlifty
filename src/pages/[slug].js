@@ -31,8 +31,6 @@ export default function Post({ post, socialImage }) {
     readingTime,
   } = post;
 
-  console.log(post);
-
   const { metadata: siteMetadata = {}, homepage, recentPosts = [] } = useSite();
 
   if (!post.og) {

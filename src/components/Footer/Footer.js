@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 import useSite from 'hooks/use-site';
-import { postPathBySlug } from 'lib/posts';
 import { categoryPathBySlug } from 'lib/categories';
 
 import Section from 'components/Section';
@@ -25,22 +24,18 @@ const Footer = () => {
             <ul className={styles.footerMenuColumns}>
               {hasRecentPosts && (
                 <li>
-                  <Link href="/posts/">
-                    <a className={styles.footerMenuTitle}>
-                      <strong>Recent Posts</strong>
-                    </a>
-                  </Link>
+                  <strong>Pages</strong>
                   <ul className={styles.footerMenuItems}>
-                    {recentPosts.map((post) => {
-                      const { id, slug, title } = post;
-                      return (
-                        <li key={id}>
-                          <Link href={postPathBySlug(slug)}>
-                            <a>{title}</a>
-                          </Link>
-                        </li>
-                      );
-                    })}
+                    <li>
+                      <Link href="/page/about">
+                        <a>About</a>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/page/privacy-policy">
+                        <a>Privacy Policy</a>
+                      </Link>
+                    </li>
                   </ul>
                 </li>
               )}
