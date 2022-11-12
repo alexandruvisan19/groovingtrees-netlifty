@@ -25,8 +25,9 @@ const Breadcrumbs = ({ categories, slug, title }) => {
       <span className="mr-1">
         <AiOutlineRight className="text-xs relative top-px" />
       </span>
+
       <Link href={`${slug}`}>
-        <a className="overflow-ellipsis whitespace-nowrap overflow-hidden hover:underline">{title}</a>
+        <a className="inline-block whitespace-nowrap overflow-hidden overflow-ellipsis hover:underline">{title}</a>
       </Link>
     </nav>
   );

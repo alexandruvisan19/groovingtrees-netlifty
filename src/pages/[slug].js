@@ -1,40 +1,37 @@
-import Link from 'next/link';
 import { Helmet } from 'react-helmet';
 
-import { getPostBySlug, getRecentPosts, postPathBySlug } from 'lib/posts';
-import { formatDate } from 'lib/datetime';
+import { getPostBySlug, getRecentPosts } from 'lib/posts';
 import { ArticleJsonLd } from 'lib/json-ld';
 import { helmetSettingsFromMetadata } from 'lib/site';
 import useSite from 'hooks/use-site';
 import usePageMetadata from 'hooks/use-page-metadata';
 
 import Layout from 'components/Layout';
-import Header from 'components/Header';
-import Section from 'components/Section';
-import Container from 'components/Container';
-import Content from 'components/Content';
 import Metadata from 'components/Metadata';
-// import FeaturedImage from 'components/FeaturedImage';
+import FeaturedImage from 'components/FeaturedImage';
 
 import styles from 'styles/pages/Post.module.scss';
 import Breadcrumbs from 'components/Breadcrumbs';
+import HeaderPost from 'components/HeaderPost/HeaderPost';
+import ContentPost from 'components/ContentPost/ContentPost';
+import RecentPosts from 'components/RecentPosts';
 
-export default function Post({ post, socialImage, related }) {
+export default function Post({ post, socialImage }) {
   const {
     title,
     metaTitle,
-    description,
+    metaDescription,
     content,
     date,
     author,
     categories,
-    modified,
-    // featuredImage,
-    isSticky = false,
+    // modified,
+    featuredImage,
     slug,
+    readingTime,
   } = post;
 
-  const { metadata: siteMetadata = {}, homepage } = useSite();
+  const { metadata: siteMetadata = {}, homepage, recentPosts = [] } = useSite();
 
   if (!post.og) {
     post.og = {};
@@ -49,7 +46,7 @@ export default function Post({ post, socialImage, related }) {
     metadata: {
       ...post,
       title: metaTitle,
-      description: description || post.og?.description || `Read more about ${title}`,
+      description: metaDescription || post.og?.description || `Read more about ${title}`,
     },
   });
 
@@ -63,7 +60,7 @@ export default function Post({ post, socialImage, related }) {
     compactCategories: false,
   };
 
-  const { posts: relatedPostsList, title: relatedPostsTitle } = related || {};
+  // const { posts: relatedPostsList, title: relatedPostsTitle } = related || {};
 
   const helmetSettings = helmetSettingsFromMetadata(metadata);
 
@@ -73,72 +70,72 @@ export default function Post({ post, socialImage, related }) {
 
       <ArticleJsonLd post={post} siteTitle={siteMetadata.title} />
 
-      <Header>
-        <Breadcrumbs categories={categories} options={metadataOptions} slug={slug} title={title} />
-        {/* {featuredImage && (
-          <FeaturedImage
-            {...featuredImage}
-            src={featuredImage.sourceUrl}
-            dangerouslySetInnerHTML={featuredImage.caption}
-          />
-        )} */}
-        <h1
-          className="prose"
-          dangerouslySetInnerHTML={{
-            __html: title,
-          }}
-        />
-        <Metadata
-          className={styles.postMetadata}
-          date={date}
-          author={author}
-          categories={categories}
-          options={metadataOptions}
-          isSticky={isSticky}
-        />
-      </Header>
-
-      <Content>
-        <Section>
-          <Container>
+      <div className="m-auto block lg:flex pt-0 md:pt-8 max-w-6xl">
+        <div className="prose prose-w-md prose-img:rounded-xl prose-figcaption:text-center hover:prose-img:shadow-lg max-w-none pl-2 pr-2">
+          <HeaderPost>
+            <Breadcrumbs categories={categories} options={metadataOptions} slug={slug} title={title} />
+            {featuredImage && (
+              <FeaturedImage
+                {...featuredImage}
+                src={featuredImage.sourceUrl}
+                dangerouslySetInnerHTML={featuredImage.caption}
+              />
+            )}
+            <h1
+              className="font-bold"
+              dangerouslySetInnerHTML={{
+                __html: title,
+              }}
+            />
+            <Metadata
+              className={styles.postMetadata}
+              date={date}
+              author={author}
+              categories={categories}
+              options={metadataOptions}
+              readingTime={readingTime}
+            />
+          </HeaderPost>
+          <ContentPost>
             <div
-              className="prose prose-lg"
               dangerouslySetInnerHTML={{
                 __html: content,
               }}
             />
-          </Container>
-        </Section>
-      </Content>
+          </ContentPost>
+        </div>
 
-      <Section className={styles.postFooter}>
-        <Container>
-          <p className={styles.postModified}>Last updated on {formatDate(modified)}.</p>
-          {Array.isArray(relatedPostsList) && relatedPostsList.length > 0 && (
-            <div className={styles.relatedPosts}>
-              {relatedPostsTitle.name ? (
-                <span>
-                  More from{' '}
-                  <Link href={relatedPostsTitle.link}>
-                    <a>{relatedPostsTitle.name}</a>
+        <aside className="hidden lg:block pr-6 pl-6 w-2/4">
+          {recentPosts.length > 0 && <RecentPosts recentPosts={recentPosts} />}
+        </aside>
+      </div>
+
+      {/* <section className="prose max-w-6xl m-auto">
+        <p>Last updated on {formatDate(modified)}.</p>
+        {Array.isArray(relatedPostsList) && relatedPostsList.length > 0 && (
+          <div>
+            {relatedPostsTitle.name ? (
+              <span>
+                More from{' '}
+                <Link href={relatedPostsTitle.link}>
+                  <a>{relatedPostsTitle.name}</a>
+                </Link>
+              </span>
+            ) : (
+              <span>More Posts</span>
+            )}
+            <ul>
+              {relatedPostsList.map((post) => (
+                <li key={post.title}>
+                  <Link href={postPathBySlug(post.slug)}>
+                    <a>{post.title}</a>
                   </Link>
-                </span>
-              ) : (
-                <span>More Posts</span>
-              )}
-              <ul>
-                {relatedPostsList.map((post) => (
-                  <li key={post.title}>
-                    <Link href={postPathBySlug(post.slug)}>
-                      <a>{post.title}</a>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </Container>
-      </Section>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </section> */}
     </Layout>
   );
 }
