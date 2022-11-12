@@ -10,8 +10,8 @@ const ImagePost = ({ width, height, src, alt, srcSet }) => {
         width={width || '1024'}
         height={height || '685'}
         srcSet={srcSet}
-        // placeholder="blur"
-        // blurDataURL={src}
+        placeholder="blur"
+        blurDataURL={src}
         loading="eager"
         layout="intrinsic"
       />
