@@ -31,6 +31,8 @@ export default function Post({ post, socialImage }) {
     readingTime,
   } = post;
 
+  console.log(post);
+
   const { metadata: siteMetadata = {}, homepage, recentPosts = [] } = useSite();
 
   if (!post.og) {
@@ -50,8 +52,6 @@ export default function Post({ post, socialImage }) {
     },
   });
 
-  console.log('metaTitle', metaTitle);
-  console.log('metaDescription', metaDescription);
   if (process.env.WORDPRESS_PLUGIN_SEO !== true) {
     metadata.title = `${title} - ${siteMetadata.title}`;
     metadata.og.title = metadata.title;
