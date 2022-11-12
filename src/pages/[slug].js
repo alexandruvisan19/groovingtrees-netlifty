@@ -74,7 +74,7 @@ export default function Post({ post, socialImage }) {
         <div className="prose prose-w-md prose-img:rounded-xl prose-figcaption:text-center hover:prose-img:shadow-lg max-w-none pl-2 pr-2">
           <HeaderPost>
             <Breadcrumbs categories={categories} options={metadataOptions} slug={slug} title={title} />
-            {featuredImage && (
+            {!featuredImage && (
               <FeaturedImage
                 {...featuredImage}
                 src={featuredImage.sourceUrl}
