@@ -24,7 +24,11 @@ const Footer = () => {
             <ul className={styles.footerMenuColumns}>
               {hasRecentPosts && (
                 <li>
-                  <strong>Pages</strong>
+                  <Link href="/posts">
+                    <a className={styles.footerMenuTitle}>
+                      <strong>Pages</strong>
+                    </a>
+                  </Link>
                   <ul className={styles.footerMenuItems}>
                     <li>
                       <Link href="/page/about">
