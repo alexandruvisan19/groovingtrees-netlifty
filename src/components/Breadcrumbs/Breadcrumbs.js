@@ -10,7 +10,7 @@ const Breadcrumbs = ({ slug, title }) => {
         </a>
       </Link>
 
-      <span className="mr-1">
+      <span className="mr-1 ml-1">
         <AiOutlineRight className="text-xs relative top-px" />
       </span>
 

@@ -14,6 +14,12 @@ import 'styles/globals.scss';
 import 'styles/wordpress.scss';
 import variables from 'styles/_variables.module.scss';
 
+export function reportWebVitals(metric) {
+  if (metric.label === 'web-vital') {
+    console.log(metric); // The metric object ({ id, name, startTime, value, label }) is logged to the console
+  }
+}
+
 function App({ Component, pageProps = {}, metadata, recentPosts, categories, menus }) {
   const site = useSiteContext({
     metadata,
